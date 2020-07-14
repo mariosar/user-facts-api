@@ -3,7 +3,7 @@ class Api::V1::FactsController < ApplicationController
 
 	# GET /facts
 	def index
-		@facts = fact.all
+		@facts = Fact.all
 		render json: @facts
 	end
 
@@ -14,10 +14,10 @@ class Api::V1::FactsController < ApplicationController
 
 	# POST /facts
 	def create
-		@fact = fact.new(fact_params)
+		@fact = Fact.new(fact_params)
 
 		if @fact.save
-			render json: @fact, status: :created, location: @fact
+			render json: @fact, status: :created, location: api_v1_facts_path(@fact)
 		else
 			render json: @fact.errors, status: :unprocessable_entity
 		end
